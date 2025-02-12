@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Data
@@ -18,10 +19,12 @@ import java.util.Optional;
 public class VehicleService {
 
     private VehicleRepo vehicleRepo;
+    private Vehicle vehicle;
 
     @Autowired
-    public VehicleService(VehicleRepo vehicleRepo) {
+    public VehicleService(VehicleRepo vehicleRepo, Vehicle vehicle) {
         this.vehicleRepo = vehicleRepo;
+        this.vehicle = vehicle;
     }
 
 //    method to add user with image
@@ -42,6 +45,13 @@ public class VehicleService {
     public Vehicle OneVehicle(int id) {
         Optional<Vehicle> vehicle = vehicleRepo.findById(id);
         return vehicle.orElse(null);
+    }
+
+//    method to get all vehicle
+    public List<Vehicle> getAllVehicles() {
+
+        return vehicleRepo.findAll();
+
     }
 
 }

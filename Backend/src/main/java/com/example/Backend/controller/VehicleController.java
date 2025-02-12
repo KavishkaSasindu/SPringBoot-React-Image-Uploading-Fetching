@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Optional;
 
 @Data
@@ -27,7 +28,7 @@ public class VehicleController {
         this.vehicleService = vehicleService;
     }
 
-
+// add data to the controller
     @PostMapping("/addVehicle")
     public ResponseEntity<?> addVehicle(@RequestPart Vehicle vehicle, @RequestPart MultipartFile image) {
         try{
@@ -39,6 +40,56 @@ public class VehicleController {
 
         }catch(Exception e){
             return ResponseEntity.status(500).body("Something went wrong "+e.getMessage());
+        }
+    }
+
+//  get all vehicles
+    @GetMapping("/getAllVehicles")
+    public ResponseEntity<?> getALlVehicles() {
+
+        try{
+            List<Vehicle> vehicles = vehicleService.getAllVehicles();
+
+            if(vehicles.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No Vehicles Found in Database");
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(vehicles);
+        }catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(("Something went Wrong "+e.getMessage()));
+        }
+    }
+
+//    get vehicle image by id
+    @GetMapping("/oneVehicle/{vehicleId}/image")
+    public ResponseEntity<?> getVehicleImage(@PathVariable int vehicleId) {
+
+        Vehicle vehicle = vehicleService.OneVehicle(vehicleId);
+
+        try{
+            if(vehicle == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Vehicle Not Found");
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(vehicle.getImageData());
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong "+ e.getMessage());
+        }
+
+    }
+
+//    get one vehicle Data
+    @GetMapping("/oneVehicle/{vehicleId}")
+    public ResponseEntity<?> getOneVehicle(@PathVariable int vehicleId) {
+        Vehicle vehicle = vehicleService.OneVehicle(vehicleId);
+        try{
+            if(vehicle == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Vehicle Not Found");
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(vehicle);
+        }catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong "+e.getMessage());
         }
     }
 
