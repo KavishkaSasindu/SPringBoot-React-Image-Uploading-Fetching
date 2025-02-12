@@ -18,6 +18,7 @@ import java.util.Optional;
 @RestController
 @NoArgsConstructor
 @RequestMapping("/api/v1/vehicle")
+@CrossOrigin(origins = "http://localhost:5173/")
 public class VehicleController {
 
     private VehicleService vehicleService;
