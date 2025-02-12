@@ -12,11 +12,10 @@ const Home = () => {
       );
 
       const vehicleList = await response.data;
-      setVehicle(vehicleList);
       console.log(vehicleList);
 
       const vehicleWithImage = await Promise.all(
-        vehicleList.map(async (vehicle) => {
+        vehicleList?.map(async (vehicle) => {
           try {
             const vehicleImage = await axios.get(
               `http://localhost:8080/api/v1/vehicle/oneVehicle/${vehicle.vehicleId}/image`,
@@ -46,15 +45,52 @@ const Home = () => {
     <div>
       <div className="w-[100%] flex itemx-center justify-center mt-5">
         <div className="w-[90%] flex ietms-center justify-center">
-          <div className="w-[100%] card-section grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
-            <div className="card p-4 border">
-              {vehicle.map((vehicle) => (
-                <div key={vehicle.vehicleId}>
+          <div className="w-[100%] card-section ">
+            <div className="card p-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+              {vehicle?.map((vehicle) => (
+                <div className="bg-white shadow-md p-4" key={vehicle.vehicleId}>
+                  {/* Vehicle Image */}
                   <img
                     src={vehicle.imageData}
-                    alt="image"
-                    className="w-[300px] h-[250px] border shadow-md"
+                    alt={vehicle.vehicleName}
+                    className="w-full h-48 object-cover "
                   />
+
+                  {/* Vehicle Details */}
+                  <div className="mt-3 space-y-2">
+                    <h3 className="text-lg font-semibold text-center">
+                      {vehicle.vehicleName}
+                    </h3>
+
+                    <p className="text-gray-600">
+                      <strong>Type:</strong> {vehicle.vehicleType}
+                    </p>
+                    <p className="text-gray-600">
+                      <strong>Model:</strong> {vehicle.vehicleModel}
+                    </p>
+                    <p className="text-gray-600">
+                      <strong>Color:</strong> {vehicle.vehicleColor}
+                    </p>
+                    <p className="text-gray-600">
+                      <strong>Year:</strong> {vehicle.vehicleYear}
+                    </p>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex justify-center gap-4 mt-4">
+                    <button
+                      onClick={() => onView(vehicle)}
+                      className="bg-blue-700 text-white px-4 py-2 hover:bg-blue-600 transition"
+                    >
+                      View
+                    </button>
+                    <button
+                      onClick={() => onUpdate(vehicle)}
+                      className="bg-green-700 text-white px-4 py-2 hover:bg-green-600 transition"
+                    >
+                      Update
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
