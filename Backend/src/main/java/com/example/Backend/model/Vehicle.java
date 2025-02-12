@@ -27,5 +27,5 @@ public class Vehicle {
     private String imageName;
     private String imageType;
     @Lob
-    private String imageData;
+    private byte[] imageData;
 }
