@@ -1,15 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ViewOneData = () => {
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   const [vehicle, setVehicle] = useState({
     vehicleId: "",
     vehicleName: "",
     vehicleType: "",
-    vehicleBrand: "",
     vehicleModel: "",
     vehicleYear: "",
     vehicleColor: "",
@@ -52,7 +53,25 @@ const ViewOneData = () => {
   return (
     <div>
       <div>View One Data</div>
+      <div className="flex space-x-1 mt-5 mb-5">
+        <button
+          className="px-3 py-1 bg-amber-950 text-white shadow-md hover:bg-amber-200 hover:text-black transition"
+          onClick={() => navigate("/create")}
+        >
+          Add Vehicle
+        </button>
+        <button
+          className="px-3 py-1 bg-amber-950 text-white shadow-md hover:bg-amber-200 hover:text-black transition"
+          onClick={() => navigate("/")}
+        >
+          Home
+        </button>
+      </div>
       <img src={image} alt={vehicle.imageName} />
+      Name : {vehicle.vehicleName} <br />
+      Type : {vehicle.vehicleType} <br />
+      Color : {vehicle.vehicleColor} <br />
+      Brand : {vehicle.vehicleModel}
     </div>
   );
 };

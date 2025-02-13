@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   const naviget = useNavigate();
 
   const [vehicle, setVehicle] = useState([]);
@@ -49,6 +50,20 @@ const Home = () => {
       <div className="w-[100%] flex itemx-center justify-center mt-5">
         <div className="w-[90%] flex ietms-center justify-center">
           <div className="w-[100%] card-section ">
+            <div className="flex space-x-1">
+              <button
+                className="px-3 py-1 bg-amber-950 text-white shadow-md hover:bg-amber-200 hover:text-black transition"
+                onClick={() => navigate("/create")}
+              >
+                Add Vehicle
+              </button>
+              <button
+                className="px-3 py-1 bg-amber-950 text-white shadow-md hover:bg-amber-200 hover:text-black transition"
+                onClick={() => navigate("/allData")}
+              >
+                List of Data
+              </button>
+            </div>
             <div className="card p-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
               {vehicle?.map((vehicle) => (
                 <div className="bg-white shadow-md p-4" key={vehicle.vehicleId}>

@@ -1,7 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AllData = () => {
+  const navigate = useNavigate();
+
   const [vehicle, setVehicle] = useState([]);
 
   const fetchData = async () => {
@@ -40,7 +43,20 @@ const AllData = () => {
 
   return (
     <div>
-      <div>Fetching All Data</div>
+      <div className="flex space-x-1 mt-5">
+        <button
+          className="px-3 py-1 bg-amber-950 text-white shadow-md hover:bg-amber-200 hover:text-black transition"
+          onClick={() => navigate("/create")}
+        >
+          Add Vehicle
+        </button>
+        <button
+          className="px-3 py-1 bg-amber-950 text-white shadow-md hover:bg-amber-200 hover:text-black transition"
+          onClick={() => navigate("/")}
+        >
+          Home
+        </button>
+      </div>
 
       <div className="w-[100%] flex itemx-center justify-center mt-5">
         <table className="table-auto w-[90%]">
@@ -59,12 +75,17 @@ const AllData = () => {
                 <td>{vehicle.vehicleName}</td>
                 <td>{vehicle.vehicleModel}</td>
                 <td>
-                  <img
-                    src={vehicle.imageData}
-                    alt={vehicle.vehicleName}
-                    width="100px"
-                    height="100px"
-                  />
+                  <button
+                    className="hover:scale-110 transform transition duration-300"
+                    onClick={() => navigate(`/vehicleOne/${vehicle.vehicleId}`)}
+                  >
+                    <img
+                      src={vehicle.imageData}
+                      alt={vehicle.vehicleName}
+                      width="100px"
+                      height="100px"
+                    />
+                  </button>
                 </td>
               </tr>
             ))}

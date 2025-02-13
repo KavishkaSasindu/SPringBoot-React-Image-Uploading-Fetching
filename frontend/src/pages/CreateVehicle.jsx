@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const CreateVehicle = () => {
+  const navigate = useNavigate();
+
   const [vehicle, setVehicle] = useState({
     vehicleId: "",
     vehicleName: "",
@@ -59,6 +62,13 @@ const CreateVehicle = () => {
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-4">
             Add New Vehicle
           </h2>
+
+          <button
+            className="px-3 py-1 bg-cyan-950 text-white hover:bg-cyan-300 hover:text-black transition mb-4"
+            onClick={() => navigate("/")}
+          >
+            Home
+          </button>
 
           <form className="space-y-4" onSubmit={addUserData}>
             <div>
