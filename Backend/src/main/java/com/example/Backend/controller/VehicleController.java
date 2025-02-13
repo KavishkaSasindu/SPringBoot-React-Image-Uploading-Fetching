@@ -94,4 +94,18 @@ public class VehicleController {
         }
     }
 
+//    method to update
+    @PutMapping("/updateData/{vehicleId}")
+    public ResponseEntity<?> updateVehicle(@RequestPart Vehicle vehicle, @RequestPart MultipartFile image, @PathVariable int vehicleId) {
+        try{
+            if(vehicle == null) {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Please provide input data");
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(vehicleService.updateVehicle(vehicle,image,vehicleId));
+        }catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong "+e.getMessage());
+        }
+    }
+
 }

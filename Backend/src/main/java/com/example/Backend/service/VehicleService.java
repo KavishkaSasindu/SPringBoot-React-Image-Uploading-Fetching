@@ -54,4 +54,25 @@ public class VehicleService {
 
     }
 
+//    method to update data
+    public Vehicle updateVehicle(Vehicle vehicleData, MultipartFile image, int vehicleId) throws IOException {
+        Optional<Vehicle> vehicle1 = vehicleRepo.findById(vehicleId);
+
+        if(vehicle1.isPresent()) {
+            vehicle = vehicle1.get();
+            vehicle.setVehicleId(vehicleData.getVehicleId());
+            vehicle.setVehicleName(vehicleData.getVehicleName());
+            vehicle.setVehicleType(vehicleData.getVehicleType());
+            vehicle.setVehicleColor(vehicleData.getVehicleColor());
+            vehicle.setVehicleModel(vehicleData.getVehicleModel());
+            vehicle.setVehicleYear(vehicleData.getVehicleYear());
+            vehicle.setImageName(image.getOriginalFilename());
+            vehicle.setImageType(image.getContentType());
+            vehicle.setImageData(image.getBytes());
+            return vehicleRepo.save(vehicle);
+
+        }
+        return null;
+    }
+
 }

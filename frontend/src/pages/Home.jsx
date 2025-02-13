@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const naviget = useNavigate();
+
   const [vehicle, setVehicle] = useState([]);
 
   const fetchAllUserWithImage = async () => {
@@ -79,15 +82,14 @@ const Home = () => {
                   {/* Action Buttons */}
                   <div className="flex justify-center gap-4 mt-4">
                     <button
-                      onClick={() => onView(vehicle)}
+                      onClick={() =>
+                        naviget(`/vehicleOne/${vehicle.vehicleId}`)
+                      }
                       className="bg-blue-700 text-white px-4 py-2 hover:bg-blue-600 transition"
                     >
                       View
                     </button>
-                    <button
-                      onClick={() => onUpdate(vehicle)}
-                      className="bg-green-700 text-white px-4 py-2 hover:bg-green-600 transition"
-                    >
+                    <button className="bg-green-700 text-white px-4 py-2 hover:bg-green-600 transition">
                       Update
                     </button>
                   </div>
