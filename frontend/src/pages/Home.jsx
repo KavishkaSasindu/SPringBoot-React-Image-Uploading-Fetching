@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ const Home = () => {
                 List of Data
               </button>
             </div>
-            <div className="card p-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+            <div className="card p-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
               {vehicle?.map((vehicle) => (
                 <div className="bg-white shadow-md p-4" key={vehicle.vehicleId}>
                   {/* Vehicle Image */}
@@ -104,7 +104,10 @@ const Home = () => {
                     >
                       View
                     </button>
-                    <button className="bg-green-700 text-white px-4 py-2 hover:bg-green-600 transition">
+                    <button
+                      className="bg-green-700 text-white px-4 py-2 hover:bg-green-600 transition"
+                      onClick={() => naviget(`/update/${vehicle.vehicleId}`)}
+                    >
                       Update
                     </button>
                   </div>

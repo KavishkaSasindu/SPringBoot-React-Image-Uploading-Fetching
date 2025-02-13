@@ -5,6 +5,7 @@ import CreateVehicle from "./pages/CreateVehicle";
 import Navbar from "./components/Navbar";
 import AllData from "./pages/AllData";
 import ViewOneData from "./pages/ViewOneData";
+import UpdateData from "./pages/UpdateData";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route path="/create" element={<CreateVehicle />} />
           <Route path="/allData" element={<AllData />} />
           <Route path="/vehicleOne/:id" element={<ViewOneData />} />
+          <Route path="/update/:id" element={<UpdateData />} />
         </Routes>
       </BrowserRouter>
     </div>
